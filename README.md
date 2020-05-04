@@ -8,3 +8,12 @@ when you want to run it
 ./Ezcheatsheets
 in the working dir
 i dont know how to make it work from every directory in the terminal if someone knows tell me please thanks
+
+modules done
+cheatscripts done
+update
+tools install
+open tools
+fast lazy sql
+ip check
+metasploit
