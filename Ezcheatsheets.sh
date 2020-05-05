@@ -1,4 +1,4 @@
-#!/usr/local/bin/pip3 python3
+#!/bin/bash
 import webbrowser
 import os
 import sys
@@ -379,11 +379,19 @@ isroot= "root"
 
 
 def installp(ptype,p):
+	clear()
+	logo()
+	
 	if packages[ptype][p] in installed_packages :
-		os.system(aptgi+packages[ptype][p])
-		os.system (input())
+		Cprint(col.orange,"are you sure you want to install this "+packages[ptype][p]+ " package?(y/n)")
+		i = input()
+		if i == "y":
+			os.system(aptgi+packages[ptype][p])
+			os.system (input())
 	else:
 		Cprint(col.orange,"package is already installed")
+	cntnu()
+		
 			
 class Instalapplist:		
 	def isinstalled(ptype,p):
@@ -393,7 +401,12 @@ class Instalapplist:
 				pass
 			 
 					
-			
+def cntnu():
+	print("\033[33m Press"+"\033[1;31m Enter"+"\033[33m key to go "+"\033[1;31m back")
+	#Cprint(col.red,"any key") 
+	#Cprint(col.orange,"to go ") 
+	#Cprint(col.red,"back")
+	i= input()
 class col:
     """
     A list of settings for stylish terminal output according to
@@ -1074,48 +1087,48 @@ def Strsstst():
 		print ("")
 		Cprint (col.orange, "enter the index of the Tool you want to open ")
 		Cprint (col.orange, "enter anything else to exit \n")
-		Cprint (col.orange, " 1) Exploitation_Tools")
-		Cprint (col.orange, " 2) Forensics_Tools")
-		Cprint (col.orange, " 3) Hardware_Hacking")
-		Cprint (col.orange, " 4) Information_Gathering")
-		Cprint (col.orange, " 5) Maintaining_Access")
-		Cprint (col.orange, " 6) Password_Attacks")
-		Cprint (col.orange, " 7) Reporting_Tools")
-		Cprint (col.orange, " 8) Reverse_Engineering")
-		Cprint (col.orange, " 9) Sniffing_and_Spoofing")
-		Cprint (col.orange, "10) Stress_Testing")
-		Cprint (col.orange, "11) Vulnerability_Analysis")
-		Cprint (col.orange, "12) Web_Applications")
-		Cprint (col.orange, "13) Wireless_Attacks")
+		Cprint (col.orange, " 1) dhcpig")
+		Cprint (col.orange, " 2) funkload")
+		Cprint (col.orange, " 3) iaxflood")
+		Cprint (col.orange, " 4) inviteflood")
+		Cprint (col.orange, " 5) ipv6-toolkit")
+		Cprint (col.orange, " 6) mdk3")
+		Cprint (col.orange, " 7) reaver")
+		Cprint (col.orange, " 8) rtpflood")
+		Cprint (col.orange, " 9) slowhttptest")
+		Cprint (col.orange, "10) t50")
+		Cprint (col.orange, "11) termineter")
+		Cprint (col.orange, "12) thc-ipv6")
+		Cprint (col.orange, "13) thc-ssl-dos")
 		Cprint (col.orange, " b) ")
 	
 		i = input()
 		if i == "1":
-			InfoGath()
+			installp(9,0)
 		elif i == "2":
-			VulAnal()
+			installp(9,1)
 		elif i == "3":
-			Cprint (col.orange,"need2add")
+			installp(9,2)
 		elif i == "4":
-			InfoGath()
+			installp(9,3)
 		elif i == "5":
-			Cprint (col.orange,"need2add")	
+			installp(9,4)
 		elif i == "6":
-			Cprint (col.orange,"need2add")		
+			installp(9,5)	
 		elif i == "7":
-			Cprint (col.orange,"need2add")	
+			installp(9,6)
 		elif i == "8":
-			Cprint (col.orange,"need2add")	
+			installp(9,7)	
 		elif i == "9":
-			Cprint (col.orange,"need2add")	
+			installp(9,8)
 		elif i == "10":
-			Cprint (col.orange,"need2add")	
+			installp(9,9)
 		elif i == "11":
-			VulAnal()
+			installp(9,10)
 		elif i == "12":
-			Cprint (col.orange,"need2add")	
+			installp(9,11)
 		elif i == "13":
-			Cprint (col.orange,"need2add")	
+			installp(9,12)
 		if i == "b":
 			ToolsCat()
 def WebApps():
