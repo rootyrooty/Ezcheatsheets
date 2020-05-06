@@ -3,9 +3,9 @@ my own code + cheatsheets on the web
 this works only with internet connection
 install
 go the working directory in the terminal
-chmod +x ./Ezcheatsheets.sh
+chmod +x ./Rootys.sh
 when you want to run it
-./Ezcheatsheets
+./Rootys.sh
 in the working dir
 i dont know how to make it work from every directory in the terminal if someone knows tell me please thanks
 
