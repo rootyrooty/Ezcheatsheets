@@ -9,6 +9,8 @@ import sys
 #    print("Please install the 'python3-apt' package")
 #    exit(1)
 
+#check dir
+Dir = os.system("pwd")
 
 #dev tools
 # print format Cprint(Terminal.black,"wadsadw") example willprint black wadsadw
@@ -372,9 +374,8 @@ packages=[
 	Web_Applications,
 	Wireless_Attacks
 	]
-
+#handeling
 # os.system(aptgi+packages[0][1]) to install package
-aptgi ="sudo apt-get install "
 isroot= "root"
 
 
@@ -386,26 +387,30 @@ def installp(ptype,p):
 		Cprint(col.orange,"are you sure you want to install this "+packages[ptype][p]+ " package?(y/n)")
 		i = input()
 		if i == "y":
-			os.system(aptgi+packages[ptype][p])
+			os.system("sudo apt-get install "+packages[ptype][p])
 			os.system (input())
 	else:
 		Cprint(col.orange,packages[ptype][p])
 		Cprint(col.orange,"package is already installed")
 	cntnu()
 def installall():
-	ptype=0
-	p=0
-	
-	while ptype < len(packages):
-		while p < len(packages[ptype]):
-			if packages[ptype][p] not in installed_packages :
-				os.system(aptgi+packages[ptype][p])
-				clear()
-			else:
-				Cprint(col.orange,packages[ptype][p])
-				Cprint(col.orange,"package is already installed")
-			p +=1
-		ptype+=1
+	clear()
+	Cprint(col.orange,"Are you sure you want to commit this Action y/n (It will take some time  )")
+	i=input()
+	if i == "y":
+		ptype=0
+		p=0
+		
+		while ptype < len(packages):
+			while p < len(packages[ptype]):
+				if packages[ptype][p] not in installed_packages :
+					os.system("sudo apt-get install "+packages[ptype][p])
+					clear()
+				else:
+					Cprint(col.orange,packages[ptype][p])
+					Cprint(col.orange,"package is already installed")
+				p +=1
+			ptype+=1
 					
 class Instalapplist:		
 	def isinstalled(ptype,p):
@@ -1096,9 +1101,10 @@ def mainmenu():
 		Cprint (col.orange, " 3) Open Metasploit")
 		Cprint (col.orange, " 4) Contact me")
 		Cprint (col.orange, " 5) My shop")
+		Cprint (col.orange, " 6) update Rootyss")
 		Cprint (col.orange, " 0) to exit")
 		
-		
+		print (Dir)
 	
 		i = input()
 		
@@ -1115,14 +1121,16 @@ def mainmenu():
 			contact()
 		elif i == "5":
 			webbrowser.open('https://shoppy.gg/@rooty')
+		elif i == "6":
+			os.system("git pull")
 		elif i == "0":
 			break
 
 
 #reqs = subprocess.check_output([sys.executable, '-m', 'pip', 'freeze'])
 #installed_packages = [r.decode().split('==')[0] for r in reqs.split()]
-gp = "dpkg --get-selections"
-installed_packages = str(os.system(gp))
+
+installed_packages = str(os.system("dpkg --get-selections"))
 clear()
 #print(installed_packages) do not if else is print
 #installp(1,21)
@@ -1131,6 +1139,7 @@ clear()
 #installp(0,1)
 #os.system(cmd+packages[0][1])
 mainmenu()
+print (Dir)
 #for beef-xss in packages (Exploitation Tools):
 #		if p is not Installist(beef-xss):
 	#		print "apt-get install "+ beef-xss
