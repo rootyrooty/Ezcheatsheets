@@ -1,8 +1,8 @@
-#!/bin/bash
+
+#!/bin/bash 
 import webbrowser
 import os
 import sys
-import subprocess
 #try:
 #    import apt
 #except ImportError:
@@ -382,17 +382,31 @@ def installp(ptype,p):
 	clear()
 	logo()
 	
-	if packages[ptype][p] in installed_packages :
+	if packages[ptype][p] not in installed_packages :
 		Cprint(col.orange,"are you sure you want to install this "+packages[ptype][p]+ " package?(y/n)")
 		i = input()
 		if i == "y":
 			os.system(aptgi+packages[ptype][p])
 			os.system (input())
 	else:
+		Cprint(col.orange,packages[ptype][p])
 		Cprint(col.orange,"package is already installed")
 	cntnu()
-		
-			
+def installall():
+	ptype=0
+	p=0
+	
+	while ptype < len(packages):
+		while p < len(packages[ptype]):
+			if packages[ptype][p] not in installed_packages :
+				os.system(aptgi+packages[ptype][p])
+				clear()
+			else:
+				Cprint(col.orange,packages[ptype][p])
+				Cprint(col.orange,"package is already installed")
+			p +=1
+		ptype+=1
+					
 class Instalapplist:		
 	def isinstalled(ptype,p):
 			try:
@@ -448,7 +462,7 @@ def Cheatsheet ():
 		
 		i = input()
 		
-		if i == "1":
+		if i == "1    ":
 			webbrowser.open('https://highon.coffee/blog/reverse-shell-cheat-sheet/')
 		elif i == "2":
 			webbrowser.open('https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/ ')
@@ -488,7 +502,7 @@ def Tools ():
 		elif i == "4":
 			Cprint (col.orange, "need2add")
 		elif i == "5":
-			Cprint (col.orange, "need2add")
+			installall()
 		if i == "b":
 			mainmenu() 
 			break
@@ -576,6 +590,41 @@ def ToolsCat():
 			WireAttks()
 		if i == "b":
 			Tools()
+def contact():
+	while True :
+		clear()
+		logo()
+		
+		Cprint (col.red, "***************************** ContactInfo *******************************")
+		print ("")
+		Cprint (col.orange,"enter the index of the cheatsheet you want to open \n")
+		Cprint (col.orange, " 1) GitHub")
+		Cprint (col.orange, " 2) All tools")
+		Cprint (col.orange, " 3) Open Metasploit")
+		Cprint (col.orange, " 4) Contact me")
+		Cprint (col.orange, " 5) My shop")
+		Cprint (col.orange, " b) to go back")
+		
+		
+	
+		i = input()
+		
+		if i == "1":
+			webbrowser.open('https://github.com/rootyrooty')
+			break
+		elif i == "2":
+			Tools()
+			break
+		elif i == "3":
+			break
+			os.system(msfconsole)
+		elif i == "4":
+			contact()
+		elif i == "5":
+			webbrowser.open('https://shoppy.gg/@rooty')
+		elif i == "0":
+			break	
+
 
 def InfoGath():
 	while True :
@@ -586,7 +635,7 @@ def InfoGath():
 		print ("")
 		Cprint (col.orange, "enter the index of the Tool you want to open ")
 		Cprint (col.orange, "enter anything else to exit \n")
-		Cprint (col.orange, " 1) Exploitation_Tools")
+		Cprint (col.orange, " 1) ace-voip")
 		Cprint (col.orange, " 2) Forensics_Tools")
 		Cprint (col.orange, " 3) Hardware_Hacking")
 		Cprint (col.orange, " 4) Information_Gathering")
@@ -599,24 +648,20 @@ def InfoGath():
 		Cprint (col.orange, "11) Vulnerability_Analysis")
 		Cprint (col.orange, "12) Web_Applications")
 		Cprint (col.orange, "13) Wireless_Attacks")
-		Cprint (col.orange, " b) ")
-	
-	
+		Cprint (col.orange, " b) back")
+		Cprint (col.orange, " 0) Exit")
 	
 		i = input()
-
-		if i == "1":
-			Cprint (col.orange,"need2add")
-		elif i == "2":
-			Cprint (col.orange,"need2add")
-		elif i == "3":
-			Cprint (col.orange,"need2add")
-		elif i == "4":
-			Cprint (col.orange,"need2add")
-		elif i == "5":
-			Cprint (col.orange,"need2add")
-		if i == "b":
-			ToolsCat()
+		try:
+			i=int(i)
+			if type(i) == int:
+				print ("yay")
+				installp(3,(i-1))
+			if i == "0":
+				os.system(exit)
+		except:
+			if i == "b":
+				ToolsCat()		
 def VulAnal():
 	while True :
 		clear()
@@ -640,20 +685,18 @@ def VulAnal():
 	
 	
 	
-		i = input()
 
-		if i == "1":
-			Cprint (col.orange,"need2add")
-		elif i == "2":
-			Cprint (col.orange,"need2add")
-		elif i == "3":
-			Cprint (col.orange,"need2add")
-		elif i == "4":
-			Cprint (col.orange,"need2add")
-		elif i == "5":
-			Cprint (col.orange,"need2add")	
-		if i == "b":
-			ToolsCat()
+		i = input()
+		try:
+			i=int(i)
+			if type(i) == int:
+				print ("yay")
+				installp(3,(i-1))
+			if i == "0":
+				os.system(exit)
+		except:
+			if i == "b":
+				ToolsCat()				
 def Expltools():
 	while True :
 		clear()
@@ -679,34 +722,16 @@ def Expltools():
 		Cprint (col.orange, " b) ")
 	
 		i = input()
-		if i == "1":
-			InfoGath()
-		elif i == "2":
-			VulAnal()
-		elif i == "3":
-			Cprint (col.orange,"need2add")
-		elif i == "4":
-			InfoGath()
-		elif i == "5":
-			Cprint (col.orange,"need2add")	
-		elif i == "6":
-			Cprint (col.orange,"need2add")		
-		elif i == "7":
-			Cprint (col.orange,"need2add")	
-		elif i == "8":
-			Cprint (col.orange,"need2add")	
-		elif i == "9":
-			Cprint (col.orange,"need2add")	
-		elif i == "10":
-			Cprint (col.orange,"need2add")	
-		elif i == "11":
-			VulAnal()
-		elif i == "12":
-			Cprint (col.orange,"need2add")	
-		elif i == "13":
-			Cprint (col.orange,"need2add")	
-		if i == "b":
-			ToolsCat()
+		try:
+			i=int(i)
+			if type(i) == int:
+				print ("yay")
+				installp(3,(i-1))
+			if i == "0":
+				os.system(exit)
+		except:
+			if i == "b":
+				ToolsCat()
 def Frctools():
 	while True :
 		clear()
@@ -732,34 +757,16 @@ def Frctools():
 		Cprint (col.orange, " b) ")
 	
 		i = input()
-		if i == "1":
-			InfoGath()
-		elif i == "2":
-			VulAnal()
-		elif i == "3":
-			Cprint (col.orange,"need2add")
-		elif i == "4":
-			InfoGath()
-		elif i == "5":
-			Cprint (col.orange,"need2add")	
-		elif i == "6":
-			Cprint (col.orange,"need2add")		
-		elif i == "7":
-			Cprint (col.orange,"need2add")	
-		elif i == "8":
-			Cprint (col.orange,"need2add")	
-		elif i == "9":
-			Cprint (col.orange,"need2add")	
-		elif i == "10":
-			Cprint (col.orange,"need2add")	
-		elif i == "11":
-			VulAnal()
-		elif i == "12":
-			Cprint (col.orange,"need2add")	
-		elif i == "13":
-			Cprint (col.orange,"need2add")	
-		if i == "b":
-			ToolsCat()	
+		try:
+			i=int(i)
+			if type(i) == int:
+				print ("yay")
+				installp(3,(i-1))
+			if i == "0":
+				os.system(exit)
+		except:
+			if i == "b":
+				ToolsCat()
 def Hdhack():
 	while True :
 		clear()
@@ -785,34 +792,16 @@ def Hdhack():
 		Cprint (col.orange, " b) ")
 	
 		i = input()
-		if i == "1":
-			InfoGath()
-		elif i == "2":
-			VulAnal()
-		elif i == "3":
-			Cprint (col.orange,"need2add")
-		elif i == "4":
-			InfoGath()
-		elif i == "5":
-			Cprint (col.orange,"need2add")	
-		elif i == "6":
-			Cprint (col.orange,"need2add")		
-		elif i == "7":
-			Cprint (col.orange,"need2add")	
-		elif i == "8":
-			Cprint (col.orange,"need2add")	
-		elif i == "9":
-			Cprint (col.orange,"need2add")	
-		elif i == "10":
-			Cprint (col.orange,"need2add")	
-		elif i == "11":
-			VulAnal()
-		elif i == "12":
-			Cprint (col.orange,"need2add")	
-		elif i == "13":
-			Cprint (col.orange,"need2add")	
-		if i == "b":
-			ToolsCat()
+		try:
+			i=int(i)
+			if type(i) == int:
+				print ("yay")
+				installp(3,(i-1))
+			if i == "0":
+				os.system(exit)
+		except:
+			if i == "b":
+				ToolsCat()
 def MntngAcc():
 	while True :
 		clear()
@@ -838,34 +827,16 @@ def MntngAcc():
 		Cprint (col.orange, " b) ")
 	
 		i = input()
-		if i == "1":
-			InfoGath()
-		elif i == "2":
-			VulAnal()
-		elif i == "3":
-			Cprint (col.orange,"need2add")
-		elif i == "4":
-			InfoGath()
-		elif i == "5":
-			Cprint (col.orange,"need2add")	
-		elif i == "6":
-			Cprint (col.orange,"need2add")		
-		elif i == "7":
-			Cprint (col.orange,"need2add")	
-		elif i == "8":
-			Cprint (col.orange,"need2add")	
-		elif i == "9":
-			Cprint (col.orange,"need2add")	
-		elif i == "10":
-			Cprint (col.orange,"need2add")	
-		elif i == "11":
-			VulAnal()
-		elif i == "12":
-			Cprint (col.orange,"need2add")	
-		elif i == "13":
-			Cprint (col.orange,"need2add")	
-		if i == "b":
-			ToolsCat()
+		try:
+			i=int(i)
+			if type(i) == int:
+				print ("yay")
+				installp(3,(i-1))
+			if i == "0":
+				os.system(exit)
+		except:
+			if i == "b":
+				ToolsCat()
 def PsswdAttk():
 	while True :
 		clear()
@@ -891,34 +862,16 @@ def PsswdAttk():
 		Cprint (col.orange, " b) ")
 	
 		i = input()
-		if i == "1":
-			InfoGath()
-		elif i == "2":
-			VulAnal()
-		elif i == "3":
-			Cprint (col.orange,"need2add")
-		elif i == "4":
-			InfoGath()
-		elif i == "5":
-			Cprint (col.orange,"need2add")	
-		elif i == "6":
-			Cprint (col.orange,"need2add")		
-		elif i == "7":
-			Cprint (col.orange,"need2add")	
-		elif i == "8":
-			Cprint (col.orange,"need2add")	
-		elif i == "9":
-			Cprint (col.orange,"need2add")	
-		elif i == "10":
-			Cprint (col.orange,"need2add")	
-		elif i == "11":
-			VulAnal()
-		elif i == "12":
-			Cprint (col.orange,"need2add")	
-		elif i == "13":
-			Cprint (col.orange,"need2add")	
-		if i == "b":
-			ToolsCat()
+		try:
+			i=int(i)
+			if type(i) == int:
+				print ("yay")
+				installp(3,(i-1))
+			if i == "0":
+				os.system(exit)
+		except:
+			if i == "b":
+				ToolsCat()
 def Reprttools():
 	while True :
 		clear()
@@ -944,34 +897,16 @@ def Reprttools():
 		Cprint (col.orange, " b) ")
 	
 		i = input()
-		if i == "1":
-			InfoGath()
-		elif i == "2":
-			VulAnal()
-		elif i == "3":
-			Cprint (col.orange,"need2add")
-		elif i == "4":
-			InfoGath()
-		elif i == "5":
-			Cprint (col.orange,"need2add")	
-		elif i == "6":
-			Cprint (col.orange,"need2add")		
-		elif i == "7":
-			Cprint (col.orange,"need2add")	
-		elif i == "8":
-			Cprint (col.orange,"need2add")	
-		elif i == "9":
-			Cprint (col.orange,"need2add")	
-		elif i == "10":
-			Cprint (col.orange,"need2add")	
-		elif i == "11":
-			VulAnal()
-		elif i == "12":
-			Cprint (col.orange,"need2add")	
-		elif i == "13":
-			Cprint (col.orange,"need2add")	
-		if i == "b":
-			ToolsCat()
+		try:
+			i=int(i)
+			if type(i) == int:
+				print ("yay")
+				installp(3,(i-1))
+			if i == "0":
+				os.system(exit)
+		except:
+			if i == "b":
+				ToolsCat()
 def RevrEngne():
 	while True :
 		clear()
@@ -997,34 +932,16 @@ def RevrEngne():
 		Cprint (col.orange, " b) ")
 	
 		i = input()
-		if i == "1":
-			InfoGath()
-		elif i == "2":
-			VulAnal()
-		elif i == "3":
-			Cprint (col.orange,"need2add")
-		elif i == "4":
-			InfoGath()
-		elif i == "5":
-			Cprint (col.orange,"need2add")	
-		elif i == "6":
-			Cprint (col.orange,"need2add")		
-		elif i == "7":
-			Cprint (col.orange,"need2add")	
-		elif i == "8":
-			Cprint (col.orange,"need2add")	
-		elif i == "9":
-			Cprint (col.orange,"need2add")	
-		elif i == "10":
-			Cprint (col.orange,"need2add")	
-		elif i == "11":
-			VulAnal()
-		elif i == "12":
-			Cprint (col.orange,"need2add")	
-		elif i == "13":
-			Cprint (col.orange,"need2add")	
-		if i == "b":
-			ToolsCat()
+		try:
+			i=int(i)
+			if type(i) == int:
+				print ("yay")
+				installp(3,(i-1))
+			if i == "0":
+				os.system(exit)
+		except:
+			if i == "b":
+				ToolsCat()
 def SnifnSpof():
 	while True :
 		clear()
@@ -1050,34 +967,16 @@ def SnifnSpof():
 		Cprint (col.orange, " b) ")
 	
 		i = input()
-		if i == "1":
-			InfoGath()
-		elif i == "2":
-			VulAnal()
-		elif i == "3":
-			Cprint (col.orange,"need2add")
-		elif i == "4":
-			InfoGath()
-		elif i == "5":
-			Cprint (col.orange,"need2add")	
-		elif i == "6":
-			Cprint (col.orange,"need2add")		
-		elif i == "7":
-			Cprint (col.orange,"need2add")	
-		elif i == "8":
-			Cprint (col.orange,"need2add")	
-		elif i == "9":
-			Cprint (col.orange,"need2add")	
-		elif i == "10":
-			Cprint (col.orange,"need2add")	
-		elif i == "11":
-			VulAnal()
-		elif i == "12":
-			Cprint (col.orange,"need2add")	
-		elif i == "13":
-			Cprint (col.orange,"need2add")	
-		if i == "b":
-			ToolsCat()
+		try:
+			i=int(i)
+			if type(i) == int:
+				print ("yay")
+				installp(3,(i-1))
+			if i == "0":
+				os.system(exit)
+		except:
+			if i == "b":
+				ToolsCat()
 def Strsstst():
 	while True :
 		clear()
@@ -1103,34 +1002,16 @@ def Strsstst():
 		Cprint (col.orange, " b) ")
 	
 		i = input()
-		if i == "1":
-			installp(9,0)
-		elif i == "2":
-			installp(9,1)
-		elif i == "3":
-			installp(9,2)
-		elif i == "4":
-			installp(9,3)
-		elif i == "5":
-			installp(9,4)
-		elif i == "6":
-			installp(9,5)	
-		elif i == "7":
-			installp(9,6)
-		elif i == "8":
-			installp(9,7)	
-		elif i == "9":
-			installp(9,8)
-		elif i == "10":
-			installp(9,9)
-		elif i == "11":
-			installp(9,10)
-		elif i == "12":
-			installp(9,11)
-		elif i == "13":
-			installp(9,12)
-		if i == "b":
-			ToolsCat()
+		try:
+			i=int(i)
+			if type(i) == int:
+				print ("yay")
+				installp(3,(i-1))
+			if i == "0":
+				os.system(exit)
+		except:
+			if i == "b":
+				ToolsCat()
 def WebApps():
 	while True :
 		clear()
@@ -1156,34 +1037,16 @@ def WebApps():
 		Cprint (col.orange, " b) ")
 	
 		i = input()
-		if i == "1":
-			InfoGath()
-		elif i == "2":
-			VulAnal()
-		elif i == "3":
-			Cprint (col.orange,"need2add")
-		elif i == "4":
-			InfoGath()
-		elif i == "5":
-			Cprint (col.orange,"need2add")	
-		elif i == "6":
-			Cprint (col.orange,"need2add")		
-		elif i == "7":
-			Cprint (col.orange,"need2add")	
-		elif i == "8":
-			Cprint (col.orange,"need2add")	
-		elif i == "9":
-			Cprint (col.orange,"need2add")	
-		elif i == "10":
-			Cprint (col.orange,"need2add")	
-		elif i == "11":
-			VulAnal()
-		elif i == "12":
-			Cprint (col.orange,"need2add")	
-		elif i == "13":
-			Cprint (col.orange,"need2add")	
-		if i == "b":
-			ToolsCat()
+		try:
+			i=int(i)
+			if type(i) == int:
+				print ("yay")
+				installp(3,(i-1))
+			if i == "0":
+				os.system(exit)
+		except:
+			if i == "b":
+				ToolsCat()
 def WireAttks():
 	while True :
 		clear()
@@ -1209,34 +1072,16 @@ def WireAttks():
 		Cprint (col.orange, " b) ")
 	
 		i = input()
-		if i == "1":
-			InfoGath()
-		elif i == "2":
-			VulAnal()
-		elif i == "3":
-			Cprint (col.orange,"need2add")
-		elif i == "4":
-			InfoGath()
-		elif i == "5":
-			Cprint (col.orange,"need2add")	
-		elif i == "6":
-			Cprint (col.orange,"need2add")		
-		elif i == "7":
-			Cprint (col.orange,"need2add")	
-		elif i == "8":
-			Cprint (col.orange,"need2add")	
-		elif i == "9":
-			Cprint (col.orange,"need2add")	
-		elif i == "10":
-			Cprint (col.orange,"need2add")	
-		elif i == "11":
-			VulAnal()
-		elif i == "12":
-			Cprint (col.orange,"need2add")	
-		elif i == "13":
-			Cprint (col.orange,"need2add")	
-		if i == "b":
-			ToolsCat()
+		try:
+			i=int(i)
+			if type(i) == int:
+				print ("yay")
+				installp(3,(i-1))
+			if i == "0":
+				os.system(exit)
+		except:
+			if i == "b":
+				ToolsCat()
 
 def mainmenu():
 	while True :
@@ -1246,12 +1091,12 @@ def mainmenu():
 		Cprint (col.red, "****************************** Main Menu ********************************")
 		print ("")
 		Cprint (col.orange,"enter the index of the cheatsheet you want to open \n")
-		Cprint (col.orange, "1) To open cheatsheets")
-		Cprint (col.orange, "2) All tools")
-		Cprint (col.orange, "3) ")
-		Cprint (col.orange, "4) ")
-		Cprint (col.orange, "5) My shop")
-		Cprint (col.orange, "0) to exit")
+		Cprint (col.orange, " 1) To open cheatsheets")
+		Cprint (col.orange, " 2) All tools")
+		Cprint (col.orange, " 3) Open Metasploit")
+		Cprint (col.orange, " 4) Contact me")
+		Cprint (col.orange, " 5) My shop")
+		Cprint (col.orange, " 0) to exit")
 		
 		
 	
@@ -1265,9 +1110,9 @@ def mainmenu():
 			break
 		elif i == "3":
 			break
-			Cprint (col.orange,"need2add")
+			os.system(msfconsole)
 		elif i == "4":
-			Cprint (col.orange,"need2add")
+			contact()
 		elif i == "5":
 			webbrowser.open('https://shoppy.gg/@rooty')
 		elif i == "0":
@@ -1282,14 +1127,12 @@ clear()
 #print(installed_packages) do not if else is print
 #installp(1,21)
 
+	
 #installp(0,1)
 #os.system(cmd+packages[0][1])
-
 mainmenu()
 #for beef-xss in packages (Exploitation Tools):
 #		if p is not Installist(beef-xss):
 	#		print "apt-get install "+ beef-xss
 	#	else:
 	#		print "package is already installed"
-
-
