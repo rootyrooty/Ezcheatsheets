@@ -9,7 +9,7 @@ when you want to run it
 in the working dir
 i dont know how to make it work from every directory in the terminal if someone knows tell me please thanks
 
-modules done                                                                                                        
+modules done:                                                                                                        
 cheatscripts done                                                                                                   
 update lscript done                                                                                                             
 update tools done                                                                                                              
