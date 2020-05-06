@@ -1,4 +1,4 @@
-# Ezcheatsheets expanding not finished at all everyday working on it
+# rootyss expanding not finished at all everyday working on it
 my own code + cheatsheets on the web
 this works only with internet connection
 install
