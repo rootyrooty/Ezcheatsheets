@@ -17,3 +17,4 @@ open tools
 fast lazy sql                                                                                                  
 ip check                                                                                                  
 metasploit                                                                                                  
+red mark uninstalled tools
