@@ -12,7 +12,7 @@ i dont know how to make it work from every directory in the terminal if someone 
 modules done
 cheatscripts done
 update
-tools install
+tools install done
 open tools
 fast lazy sql
 ip check
