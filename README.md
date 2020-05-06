@@ -11,7 +11,8 @@ i dont know how to make it work from every directory in the terminal if someone 
 
 modules done                                                                                                        
 cheatscripts done                                                                                                   
-update                                                                                                                    
+update lscript done                                                                                                             
+update tools done                                                                                                              
 tools install done                                                                                                  
 open tools                                                                                                  
 fast lazy sql                                                                                                  
