@@ -1,10 +1,8 @@
-#!/bin/bash 
+#!/usr/bin/env python3
 import webbrowser
 import os
 import sys
 import requests
-
-
 
 #6270
 #try:
@@ -13,16 +11,25 @@ import requests
 #    print("Please install the 'python3-apt' package")
 #    exit(1)
 
+
+#check dir (permission denied? mby coz not run as root)
+#Dir=os.system("$(dirname $(readlink -f $0))")
+
 #check installed packages
-installed_packages = os.system("dpkg --get-selections")
+#installed_packages = os.system("dpkg --get-selections")
 
-#check dir
-Dir=os.system("$(dirname $(readlink -f $0))")
+#get into dir permission denied? mby coz not run as root)
+#os.system("cd $(dirname $(readlink -f $0))")
 
-# check ver user with ver.text
+
+# creat installed packages txt && import it
+os.system("dpkg --get-selections > installed_packages.txt")
+installed_packages = open('installed_packages.txt', 'r+')
+
+# check current ver with ver.text and internet connection
+
 tver = 0.5
 ver = requests.get('https://raw.githubusercontent.com/rootyrooty/Rottyss/master/version')
-
 
 #dev tools
 # print format Cprint(Terminal.black,"wadsadw") example willprint black wadsadw
@@ -394,7 +401,7 @@ def installp(ptype,p):
 	clear()
 	logo()
 	
-	if packages[ptype][p] not in installed_packages :
+	if packages[ptype][p] not in installed_packages.read() :
 		Cprint(col.orange,"are you sure you want to install this "+packages[ptype][p]+ " package?(y/n)")
 		i = input()
 		if i == "y":
@@ -414,7 +421,7 @@ def installall():
 		
 		while ptype < len(packages):
 			while p < len(packages[ptype]):
-				if packages[ptype][p] not in installed_packages :
+				if packages[ptype][p] not in installed_packages.read() :
 					os.system("sudo apt-get install "+packages[ptype][p])
 					clear()
 				else:
@@ -422,6 +429,14 @@ def installall():
 					Cprint(col.orange,"package is already installed")
 				p +=1
 			ptype+=1
+def Cconnection():
+	try:
+		ver = requests.get('https://raw.githubusercontent.com/rootyrooty/Rottyss/master/version')
+		Connection = True
+	except:
+		connection = False
+						
+					
 					
 class Instalapplist:		
 	def isinstalled(ptype,p):
@@ -430,7 +445,7 @@ class Instalapplist:
 			except ImportError as e:
 				pass
 			 
-					
+	
 def cntnu():
 	print("\033[33m Press"+"\033[1;31m Enter"+"\033[33m key to go "+"\033[1;31m back")
 	i= input()
@@ -457,7 +472,7 @@ def clear():
 def logo():
 	
 	print ("")
-	Cprint(col.red,"                   this is Rootys's Cheat Script lazy     \033[0m  \n")
+	Cprint(col.red,"                         This is Rooty's Script            \033[0m  \n")
 def Cheatsheet ():
 	while True :
 		clear()
@@ -704,7 +719,7 @@ def VulAnal():
 			i=int(i)
 			if type(i) == int:
 				print ("yay")
-				installp(3,(i-1))
+				installp(10,(i-1))
 			if i == "0":
 				os.system(exit)
 		except:
@@ -739,7 +754,7 @@ def Expltools():
 			i=int(i)
 			if type(i) == int:
 				print ("yay")
-				installp(3,(i-1))
+				installp(0,(i-1))
 			if i == "0":
 				os.system(exit)
 		except:
@@ -774,7 +789,7 @@ def Frctools():
 			i=int(i)
 			if type(i) == int:
 				print ("yay")
-				installp(3,(i-1))
+				installp(1,(i-1))
 			if i == "0":
 				os.system(exit)
 		except:
@@ -809,7 +824,7 @@ def Hdhack():
 			i=int(i)
 			if type(i) == int:
 				print ("yay")
-				installp(3,(i-1))
+				installp(2,(i-1))
 			if i == "0":
 				os.system(exit)
 		except:
@@ -844,7 +859,7 @@ def MntngAcc():
 			i=int(i)
 			if type(i) == int:
 				print ("yay")
-				installp(3,(i-1))
+				installp(4,(i-1))
 			if i == "0":
 				os.system(exit)
 		except:
@@ -879,7 +894,7 @@ def PsswdAttk():
 			i=int(i)
 			if type(i) == int:
 				print ("yay")
-				installp(3,(i-1))
+				installp(5,(i-1))
 			if i == "0":
 				os.system(exit)
 		except:
@@ -914,7 +929,7 @@ def Reprttools():
 			i=int(i)
 			if type(i) == int:
 				print ("yay")
-				installp(3,(i-1))
+				installp(6,(i-1))
 			if i == "0":
 				os.system(exit)
 		except:
@@ -949,7 +964,7 @@ def RevrEngne():
 			i=int(i)
 			if type(i) == int:
 				print ("yay")
-				installp(3,(i-1))
+				installp(7,(i-1))
 			if i == "0":
 				os.system(exit)
 		except:
@@ -984,7 +999,7 @@ def SnifnSpof():
 			i=int(i)
 			if type(i) == int:
 				print ("yay")
-				installp(3,(i-1))
+				installp(8,(i-1))
 			if i == "0":
 				os.system(exit)
 		except:
@@ -1019,7 +1034,7 @@ def Strsstst():
 			i=int(i)
 			if type(i) == int:
 				print ("yay")
-				installp(3,(i-1))
+				installp(9,(i-1))
 			if i == "0":
 				os.system(exit)
 		except:
@@ -1054,7 +1069,7 @@ def WebApps():
 			i=int(i)
 			if type(i) == int:
 				print ("yay")
-				installp(3,(i-1))
+				installp(11,(i-1))
 			if i == "0":
 				os.system(exit)
 		except:
@@ -1089,7 +1104,7 @@ def WireAttks():
 			i=int(i)
 			if type(i) == int:
 				print ("yay")
-				installp(3,(i-1))
+				installp(12,(i-1))
 			if i == "0":
 				os.system(exit)
 		except:
@@ -1122,22 +1137,26 @@ def mainmenu():
 			break
 		elif i == "3":
 			break
-			os.system(msfconsole)
+			os.system("msfconsole")
 		elif i == "4":
 			contact()
 		elif i == "5":
 			webbrowser.open('https://shoppy.gg/@rooty')
 		elif i == "6":
-			clear()
-			Cprint(col.orange,"Checking for updates")
-			if float(tver) == float(ver.text):
-				Cprint(col.green,"Current version is alteady installed")
-				cntnu()
+			Cconnection()
+			if Cconnection:
+				clear()
+				Cprint(col.orange,"Checking for updates")
+				if float(tver) == float(ver.text):
+					Cprint(col.green,"Current version is alteady installed")
+					cntnu()
+				else:
+					Cprint(col.orange,"Updating")
+					os.system("cd Dir")
+					os.system("git clone https://github.com/rootyrooty/Rottyss.git")
+					cntnu()
 			else:
-				Cprint(col.orange,"Updating")
-				os.system("cd Dir")
-				os.system("git clone https://github.com/rootyrooty/Rottyss.git")
-				cntnu()
+				Cprint (col.red, "No connection Established")
 		elif i == "0":
 			break
 
@@ -1145,9 +1164,12 @@ def mainmenu():
 
 #print(installed_packages) do not if else is print
 #installp(1,21)
+
+
+
+
 clear()
 mainmenu()
-
 
 
 
