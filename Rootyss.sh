@@ -12,9 +12,10 @@ import requests
 #except ImportError:
 #    print("Please install the 'python3-apt' package")
 #    exit(1)
+
 #check installed packages
-installed_packages = str(os.system("dpkg --get-selections"))
-clear()
+installed_packages = os.system("dpkg --get-selections")
+
 #check dir
 Dir=os.system("$(dirname $(readlink -f $0))")
 
@@ -611,31 +612,31 @@ def contact():
 		print ("")
 		Cprint (col.orange,"enter the index of the cheatsheet you want to open \n")
 		Cprint (col.orange, " 1) GitHub")
-		Cprint (col.orange, " 2) All tools")
+		Cprint (col.orange, " 2) Discord")
 		Cprint (col.orange, " 3) Open Metasploit")
 		Cprint (col.orange, " 4) Contact me")
 		Cprint (col.orange, " 5) My shop")
 		Cprint (col.orange, " b) to go back")
 		
-		
-	
 		i = input()
 		
 		if i == "1":
 			webbrowser.open('https://github.com/rootyrooty')
 			break
 		elif i == "2":
-			Tools()
+			webbrowser.open('https://discord.gg/qSMzcj5')
 			break
 		elif i == "3":
 			break
-			os.system(msfconsole)
+			os.system("msfconsole")
 		elif i == "4":
 			contact()
 		elif i == "5":
 			webbrowser.open('https://shoppy.gg/@rooty')
 		elif i == "0":
 			break	
+		if i == "b":
+			mainmenu()
 
 
 def InfoGath():
@@ -1142,10 +1143,9 @@ def mainmenu():
 
 
 
-
 #print(installed_packages) do not if else is print
 #installp(1,21)
-
+clear()
 mainmenu()
 
 
