@@ -12,6 +12,9 @@ import requests
 #    exit(1)
 
 
+
+#max size of line to not start new line " 0) to exit                                                                      v"
+
 #check dir (permission denied? mby coz not run as root)
 #Dir=os.system("$(dirname $(readlink -f $0))")
 
@@ -1125,7 +1128,7 @@ def mainmenu():
 		Cprint (col.orange, " 4) Contact me")
 		Cprint (col.orange, " 5) My shop")
 		Cprint (col.orange, " 6) update Rootyss")
-		Cprint (col.orange, " 0) to exit")
+		Cprint (col.orange, " 0) to exit                                                                      v")
 		
 		i = input()
 		
