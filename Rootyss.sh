@@ -2,8 +2,12 @@
 import webbrowser
 import os
 import sys
+#checkers imports ##requests 4 both
 import requests
-
+import ctypes
+from multiprocessing.dummy import Pool
+from multiprocessing import Lock
+import json
 #6270
 #try:
 #    import apt
@@ -702,18 +706,22 @@ def VulAnal():
 		print ("")
 		Cprint (col.orange, "enter the index of the Tool you want to open ")
 		Cprint (col.orange, "enter anything else to exit \n")
-		Cprint (col.orange, "1) Info Gathering")
-		Cprint (col.orange, "2) Vulnerability Analisis")
-		Cprint (col.orange, "3) ")
-		Cprint (col.orange, "4) ")
-		Cprint (col.orange, "5) ")
-		Cprint (col.orange, "6) ")
-		Cprint (col.orange, "7) ")
-		Cprint (col.orange, "5) ")
-		Cprint (col.orange, "5) ")
-		Cprint (col.orange, "5) ")
-		Cprint (col.orange, "b) ")
-	
+		Cprint (col.orange, " 1) bbqsq                     16) sidguesser")
+		Cprint (col.orange, " 2) bed                       17) siparmyknife")
+		Cprint (col.orange, " 3) cisco-auditing-tool       18) sqlmap")
+		Cprint (col.orange, " 4) cisco-global-exploiter    19) sqlninja")
+		Cprint (col.orange, " 5) cisco-ocs                 20) sqlsus")
+		Cprint (col.orange, " 6) cisco-torch               21) tnscmd10g")
+		Cprint (col.orange, " 7) copy-router-config        22) yersinia")
+		Cprint (col.orange, " 8) doona                     23) unix-privesc-check")
+		Cprint (col.orange, " 9) dotdotpwn                 ")
+		Cprint (col.orange, "10) jsql                      ")
+		Cprint (col.orange, "11) lynis                     ")
+		Cprint (col.orange, "12) nmap                      ") 
+		Cprint (col.orange, "13) openvas                   ") 
+		Cprint (col.orange, "14) oscanner                  ")
+		Cprint (col.orange, "15) sfuzz                     ") 
+		Cprint (col.orange, " b) back")
 	
 	
 
@@ -737,19 +745,21 @@ def Expltools():
 		print ("")
 		Cprint (col.orange, "enter the index of the Tool you want to open ")
 		Cprint (col.orange, "enter anything else to exit \n")
-		Cprint (col.orange, " 1) Exploitation_Tools")
-		Cprint (col.orange, " 2) Forensics_Tools")
-		Cprint (col.orange, " 3) Hardware_Hacking")
-		Cprint (col.orange, " 4) Information_Gathering")
-		Cprint (col.orange, " 5) Maintaining_Access")
-		Cprint (col.orange, " 6) Password_Attacks")
-		Cprint (col.orange, " 7) Reporting_Tools")
-		Cprint (col.orange, " 8) Reverse_Engineering")
-		Cprint (col.orange, " 9) Sniffing_and_Spoofing")
-		Cprint (col.orange, "10) Stress_Testing")
-		Cprint (col.orange, "11) Vulnerability_Analysis")
-		Cprint (col.orange, "12) Web_Applications")
-		Cprint (col.orange, "13) Wireless_Attacks")
+		Cprint (col.orange, " 1) armitage                  16)set")
+		Cprint (col.orange, " 2) backdoor-factory          17)shellnoob")
+		Cprint (col.orange, " 3) beef-xss                  18)sqlmap")
+		Cprint (col.orange, " 4) cisco-auditing-tool       19)thc-ipv6")
+		Cprint (col.orange, " 5) cisco-global-exploiter    20)yersinia")
+		Cprint (col.orange, " 6) cisco-ocs                    ")
+		Cprint (col.orange, " 7) cisco-torch                  ")
+		Cprint (col.orange, " 8) commix                       ")
+		Cprint (col.orange, " 9) crackle                      ")
+		Cprint (col.orange, "10) exploitdb                    ")
+		Cprint (col.orange, "11) jboss-autopwn                ")
+		Cprint (col.orange, "12) linux-exploit-suggester      ")
+		Cprint (col.orange, "13) metasploit-framework         ")
+		Cprint (col.orange, "14) msfpc                        ")
+		Cprint (col.orange, "15) routersploit                 ")
 		Cprint (col.orange, " b) ")
 	
 		i = input()
@@ -772,19 +782,21 @@ def Frctools():
 		print ("")
 		Cprint (col.orange, "enter the index of the Tool you want to open ")
 		Cprint (col.orange, "enter anything else to exit \n")
-		Cprint (col.orange, " 1) Exploitation_Tools")
-		Cprint (col.orange, " 2) Forensics_Tools")
-		Cprint (col.orange, " 3) Hardware_Hacking")
-		Cprint (col.orange, " 4) Information_Gathering")
-		Cprint (col.orange, " 5) Maintaining_Access")
-		Cprint (col.orange, " 6) Password_Attacks")
-		Cprint (col.orange, " 7) Reporting_Tools")
-		Cprint (col.orange, " 8) Reverse_Engineering")
-		Cprint (col.orange, " 9) Sniffing_and_Spoofing")
-		Cprint (col.orange, "10) Stress_Testing")
-		Cprint (col.orange, "11) Vulnerability_Analysis")
-		Cprint (col.orange, "12) Web_Applications")
-		Cprint (col.orange, "13) Wireless_Attacks")
+		Cprint (col.orange, " 1) bulk-extractor            16)peepdf")
+		Cprint (col.orange, " 2) capstone-tool             17)python-distorm3")
+		Cprint (col.orange, " 3) chntpw                    18)python3-capstone")
+		Cprint (col.orange, " 4) cuckoo                    19)python3-distorm3")
+		Cprint (col.orange, " 5) dc3dd                     20)regripper")
+		Cprint (col.orange, " 6) ddrescue                  21)volatility")
+		Cprint (col.orange, " 7) dumpzilla                 22)xplico")
+		Cprint (col.orange, " 8) extundelete               ")
+		Cprint (col.orange, " 9) foremost                  ")
+		Cprint (col.orange, "10) galleta                   ")
+		Cprint (col.orange, "11) guymager                  ")
+		Cprint (col.orange, "12) libdistorm3-3             ")
+		Cprint (col.orange, "13) p0f                       ")
+		Cprint (col.orange, "14) pdf-parser                ")
+		Cprint (col.orange, "15) pdfid                     ")
 		Cprint (col.orange, " b) ")
 	
 		i = input()
@@ -807,19 +819,12 @@ def Hdhack():
 		print ("")
 		Cprint (col.orange, "enter the index of the Tool you want to open ")
 		Cprint (col.orange, "enter anything else to exit \n")
-		Cprint (col.orange, " 1) Exploitation_Tools")
-		Cprint (col.orange, " 2) Forensics_Tools")
-		Cprint (col.orange, " 3) Hardware_Hacking")
-		Cprint (col.orange, " 4) Information_Gathering")
-		Cprint (col.orange, " 5) Maintaining_Access")
-		Cprint (col.orange, " 6) Password_Attacks")
-		Cprint (col.orange, " 7) Reporting_Tools")
-		Cprint (col.orange, " 8) Reverse_Engineering")
-		Cprint (col.orange, " 9) Sniffing_and_Spoofing")
-		Cprint (col.orange, "10) Stress_Testing")
-		Cprint (col.orange, "11) Vulnerability_Analysis")
-		Cprint (col.orange, "12) Web_Applications")
-		Cprint (col.orange, "13) Wireless_Attacks")
+		Cprint (col.orange, " 1) android-sdk")
+		Cprint (col.orange, " 2) apktool")
+		Cprint (col.orange, " 3) arduino")
+		Cprint (col.orange, " 4) dex2jar")
+		Cprint (col.orange, " 5) sakis3g")
+		Cprint (col.orange, " 6) smali")
 		Cprint (col.orange, " b) ")
 	
 		i = input()
@@ -1164,6 +1169,66 @@ def mainmenu():
 			break
 
 
+#checker
+
+combo=0
+hits=0
+proxies=0
+loaded=0
+errors = 0
+	
+class checker(object):
+	def __init__(self,proxy_location,combo_location):
+		self.proxy_l = proxy_location
+		self.combo_l = combo_location
+		
+		
+		
+	def checkermain(self,email,password):
+		pass
+		
+	def combo_loader(self):
+		pass
+		
+	def proxy_machine(self):
+		pass
+		
+	def sender(self):
+		pass
+	
+	def threads(self):
+		pass
+		
+		
+
+post_context_data = {
+	"address": {},
+	"avatarURL": "assets/i/avatar/default.png",
+	"newPassword": "",
+	"password": "awdsadw",
+	"passwordVerification": "",
+	"state":"auth",
+	"userName":"test@gmail.com",
+}
+
+headers_context_data = {
+	"content-type": "application/vnd-v4.0+json",
+	"x-device-os-id": "8c6ba119-2f93-48e4-9a92-ec095a6ca48e",
+	"accept-enconding":"gzip, deflate, br",
+	"accept": "application/json, text/plain, */*",
+}
+
+
+api_sender = requests.session()
+json_content = api_sender.post("https://api.grabpoints.com/login", data = json.dumps(post_context_data), headers=headers_context_data).content
+print(json_content)
+
+
+
+
+
+
+
 
 #print(installed_packages) do not if else is print
 #installp(1,21)
@@ -1171,10 +1236,10 @@ def mainmenu():
 
 
 
-clear()
-mainmenu()
+#clear()
+#mainmenu()
 
-
+#checker()
 
 
 #input()
