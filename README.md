@@ -16,6 +16,6 @@ update tools done
 tools install done                                                                                                  
 open tools                                                                                                  
 fast lazy sql                                                                                                  
-ip check                                                                                                  
+ip check done                                                                                                              
 metasploit                                                                                                  
 red mark uninstalled tools
