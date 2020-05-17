@@ -1,5 +1,4 @@
 # rootyss expanding not finished at all everyday working on it
-my own code + cheatsheets on the web
 this works only with internet connection
 install
 go the working directory in the terminal
