@@ -2,22 +2,20 @@
 import webbrowser
 import os
 import sys
+import subprocess as sp, shlex
+import time
 #checkers imports ##requests 4 both
 import requests
 import ctypes
 from multiprocessing.dummy import Pool
 from multiprocessing import Lock
 import json
-#6270
-#try:
-#    import apt
-#except ImportError:
-#    print("Please install the 'python3-apt' package")
-#    exit(1)
+from colorama import Fore as F
 
 
-
-#max size of line to not start new line " 0) to exit                                                                      v"
+import re
+from urllib.request import urlopen
+#max size of line to not start ne                                                                 v"
 
 #check dir (permission denied? mby coz not run as root)
 #Dir=os.system("$(dirname $(readlink -f $0))")
@@ -32,7 +30,7 @@ import json
 # creat installed packages txt && import it
 os.system("dpkg --get-selections > installed_packages.txt")
 installed_packages = open('installed_packages.txt', 'r+')
-
+installed_packages = installed_packages.read()
 # check current ver with ver.text and internet connection
 
 tver = 0.5
@@ -45,8 +43,7 @@ ver = requests.get('https://raw.githubusercontent.com/rootyrooty/Rottyss/master/
 #get package packages[categorynumber][packagenumber]
 #numbers start at 0]
 
-#dpkg --get-selections | grep -v deinstall package list
-
+#dpkg --get-selections | grep -v deinstall package list 
 
 Exploitation_Tools = [
         "armitage",
@@ -68,7 +65,7 @@ Exploitation_Tools = [
         "shellnoob",
         "sqlmap",
         "thc-ipv6",
-        "yersinia"
+        "yersinia",
 	]
 Forensics_Tools = [
         "bulk-extractor",
@@ -384,7 +381,7 @@ Wireless_Attacks = [
         "wifiphisher",
         "wifite"
 	]
-
+#
 packages=[
 	Exploitation_Tools,
 	Forensics_Tools,
@@ -407,17 +404,20 @@ packages=[
 def installp(ptype,p):
 	clear()
 	logo()
-	
-	if packages[ptype][p] not in installed_packages.read() :
-		Cprint(col.orange,"are you sure you want to install this "+packages[ptype][p]+ " package?(y/n)")
-		i = input()
-		if i == "y":
-			os.system("sudo apt-get install "+packages[ptype][p])
-			os.system (input())
-	else:
-		Cprint(col.orange,packages[ptype][p])
-		Cprint(col.orange,"package is already installed")
-	cntnu()
+	try:
+		#os.system(packages[ptype][p])
+		subprocess.Popen(args=["gnome-terminal","./Rootys.py;sleep 99999d",packages[ptype][p]]).pid
+		cntnu()
+	except:
+		if packages[ptype][p] not in installed_packages:
+			Cprint(col.orange,"are you sure you want to install this "+packages[ptype][p]+ " package?(y/n)")
+			i=input()
+			if i == "y":
+				os.system("sudo apt-get install "+packages[ptype][p])
+		else:
+			Cprint(col.orange,packages[ptype][p])
+			Cprint(col.orange,"package is already installed")
+		cntnu()
 def installall():
 	clear()
 	Cprint(col.orange,"Are you sure you want to commit this Action y/n (It will take some time  )")
@@ -436,23 +436,39 @@ def installall():
 					Cprint(col.orange,"package is already installed")
 				p +=1
 			ptype+=1
+
 def Cconnection():
 	try:
 		ver = requests.get('https://raw.githubusercontent.com/rootyrooty/Rottyss/master/version')
 		Connection = True
 	except:
 		connection = False
-						
-					
-					
-class Instalapplist:		
-	def isinstalled(ptype,p):
-			try:
-				import p
-			except ImportError as e:
-				pass
-			 
-	
+def Isinstalled(p):
+	if p in installed_packages:
+		return True
+def PappsNopen(ptype):
+	i=0
+	for p in packages[ptype]:
+		i+=1
+		if i<10:
+			Str = (" "+str(i)+") "+p)
+		else:
+			Str = (str(i)+") "+p)
+		if Isinstalled(p):
+			Cprint(col.orange,Str)
+		else:
+			Cprint(col.red,Str)
+	Cprint (col.orange, " b) ")
+	i = input()
+	try:
+		i=int(i)
+		if type(i) == int:
+			installp(ptype,(i-1))
+		if i == 0:
+			os.system(exit)
+	except:
+		if i == "b":
+			ToolsCat()	
 def cntnu():
 	print("\033[33m Press"+"\033[1;31m Enter"+"\033[33m key to go "+"\033[1;31m back")
 	i= input()
@@ -473,13 +489,31 @@ class col:
     reset = "\033[0m"
     underscore = "\033[4m"
 def Cprint(color,text):
-		print (color+text) 
+		print (color,text) 
 def clear():
 	os.system('cls' if os.name == 'nt' else 'clear')
 def logo():
-	
 	print ("")
 	Cprint(col.red,"                         This is Rooty's Script            \033[0m  \n")
+	
+	
+def geolocate():
+	clear()
+	logo()
+	url = 'http://ipinfo.io/json'
+	response = urlopen(url)
+	data = json.load(response)
+	IP=data['ip']
+	org=data['org']
+	city = data['city']
+	country=data['country']
+	region=data['region']
+	timezone=data['timezone']
+	location=data['loc']
+	Cprint (col.orange, ('Your IP detail\n '))
+	Cprint (col.orange, ('IP : {4} \nRegion : {1} \nCountry : {2} \nCity : {3} \nOrg : {0}\nTimezone : {5}\nLocation : {6}'.format(org,region,country,city,IP,timezone,location)))
+	print("")
+	cntnu()	
 def Cheatsheet ():
 	while True :
 		clear()
@@ -597,34 +631,15 @@ def ToolsCat():
 		Cprint (col.orange, " b) ")
 	
 		i = input()
-		if i == "1":
-			Expltools()
-		elif i == "2":
-			Frctools()
-		elif i == "3":
-			Hdhack()
-		elif i == "4":
-			InfoGath()
-		elif i == "5":
-			MntngAcc()
-		elif i == "6":
-			PsswdAttk()	
-		elif i == "7":
-			Reprttools()	
-		elif i == "8":
-			RevrEngne()
-		elif i == "9":
-			SnifnSpof()
-		elif i == "10":
-			Strsstst()
-		elif i == "11":
-			VulAnal()
-		elif i == "12":
-			WebApps()
-		elif i == "13":
-			WireAttks()
-		if i == "b":
-			Tools()
+		try:
+			i=int(i)
+			if type(i) == int:
+				printCat(i-1)
+			if i == 0:
+				os.system(exit)
+		except:
+			if i == "b":
+				Tools()
 def contact():
 	while True :
 		clear()
@@ -659,466 +674,15 @@ def contact():
 			break	
 		if i == "b":
 			mainmenu()
-
-
-def InfoGath():
-	while True :
-		clear()
-		logo()
-		Cprint (col.red, "*************************** Pentesting Tools ****************************")
-		Cprint (col.orange, "**************************** Info Gathering *****************************")
-		print ("")
-		Cprint (col.orange, "enter the index of the Tool you want to open ")
-		Cprint (col.orange, "enter anything else to exit \n")
-		Cprint (col.orange, " 1) ace-voip")
-		Cprint (col.orange, " 2) Forensics_Tools")
-		Cprint (col.orange, " 3) Hardware_Hacking")
-		Cprint (col.orange, " 4) Information_Gathering")
-		Cprint (col.orange, " 5) Maintaining_Access")
-		Cprint (col.orange, " 6) Password_Attacks")
-		Cprint (col.orange, " 7) Reporting_Tools")
-		Cprint (col.orange, " 8) Reverse_Engineering")
-		Cprint (col.orange, " 9) Sniffing_and_Spoofing")
-		Cprint (col.orange, "10) Stress_Testing")
-		Cprint (col.orange, "11) Vulnerability_Analysis")
-		Cprint (col.orange, "12) Web_Applications")
-		Cprint (col.orange, "13) Wireless_Attacks")
-		Cprint (col.orange, " b) back")
-		Cprint (col.orange, " 0) Exit")
-	
-		i = input()
-		try:
-			i=int(i)
-			if type(i) == int:
-				print ("yay")
-				installp(3,(i-1))
-			if i == "0":
-				os.system(exit)
-		except:
-			if i == "b":
-				ToolsCat()		
-def VulAnal():
-	while True :
-		clear()
-		logo()
-		Cprint (col.red, "*************************** Pentesting Tools ****************************")
-		Cprint (col.orange, "************************* Vulnerbility Analisis *************************")
-		print ("")
-		Cprint (col.orange, "enter the index of the Tool you want to open ")
-		Cprint (col.orange, "enter anything else to exit \n")
-		Cprint (col.orange, " 1) bbqsq                     16) sidguesser")
-		Cprint (col.orange, " 2) bed                       17) siparmyknife")
-		Cprint (col.orange, " 3) cisco-auditing-tool       18) sqlmap")
-		Cprint (col.orange, " 4) cisco-global-exploiter    19) sqlninja")
-		Cprint (col.orange, " 5) cisco-ocs                 20) sqlsus")
-		Cprint (col.orange, " 6) cisco-torch               21) tnscmd10g")
-		Cprint (col.orange, " 7) copy-router-config        22) yersinia")
-		Cprint (col.orange, " 8) doona                     23) unix-privesc-check")
-		Cprint (col.orange, " 9) dotdotpwn                 ")
-		Cprint (col.orange, "10) jsql                      ")
-		Cprint (col.orange, "11) lynis                     ")
-		Cprint (col.orange, "12) nmap                      ") 
-		Cprint (col.orange, "13) openvas                   ") 
-		Cprint (col.orange, "14) oscanner                  ")
-		Cprint (col.orange, "15) sfuzz                     ") 
-		Cprint (col.orange, " b) back")
-	
-	
-
-		i = input()
-		try:
-			i=int(i)
-			if type(i) == int:
-				print ("yay")
-				installp(10,(i-1))
-			if i == "0":
-				os.system(exit)
-		except:
-			if i == "b":
-				ToolsCat()				
-def Expltools():
+def printCat(ptype):
 	while True :
 		clear()
 		logo()
 		Cprint (col.red, "****************************** All Tools ********************************")
 		Cprint (col.orange, "*************************** Pentesting Tools ****************************")
 		print ("")
-		Cprint (col.orange, "enter the index of the Tool you want to open ")
-		Cprint (col.orange, "enter anything else to exit \n")
-		Cprint (col.orange, " 1) armitage                  16)set")
-		Cprint (col.orange, " 2) backdoor-factory          17)shellnoob")
-		Cprint (col.orange, " 3) beef-xss                  18)sqlmap")
-		Cprint (col.orange, " 4) cisco-auditing-tool       19)thc-ipv6")
-		Cprint (col.orange, " 5) cisco-global-exploiter    20)yersinia")
-		Cprint (col.orange, " 6) cisco-ocs                    ")
-		Cprint (col.orange, " 7) cisco-torch                  ")
-		Cprint (col.orange, " 8) commix                       ")
-		Cprint (col.orange, " 9) crackle                      ")
-		Cprint (col.orange, "10) exploitdb                    ")
-		Cprint (col.orange, "11) jboss-autopwn                ")
-		Cprint (col.orange, "12) linux-exploit-suggester      ")
-		Cprint (col.orange, "13) metasploit-framework         ")
-		Cprint (col.orange, "14) msfpc                        ")
-		Cprint (col.orange, "15) routersploit                 ")
-		Cprint (col.orange, " b) ")
+		PappsNopen(ptype)
 	
-		i = input()
-		try:
-			i=int(i)
-			if type(i) == int:
-				print ("yay")
-				installp(0,(i-1))
-			if i == "0":
-				os.system(exit)
-		except:
-			if i == "b":
-				ToolsCat()
-def Frctools():
-	while True :
-		clear()
-		logo()
-		Cprint (col.red, "****************************** All Tools ********************************")
-		Cprint (col.orange, "*************************** Pentesting Tools ****************************")
-		print ("")
-		Cprint (col.orange, "enter the index of the Tool you want to open ")
-		Cprint (col.orange, "enter anything else to exit \n")
-		Cprint (col.orange, " 1) bulk-extractor            16)peepdf")
-		Cprint (col.orange, " 2) capstone-tool             17)python-distorm3")
-		Cprint (col.orange, " 3) chntpw                    18)python3-capstone")
-		Cprint (col.orange, " 4) cuckoo                    19)python3-distorm3")
-		Cprint (col.orange, " 5) dc3dd                     20)regripper")
-		Cprint (col.orange, " 6) ddrescue                  21)volatility")
-		Cprint (col.orange, " 7) dumpzilla                 22)xplico")
-		Cprint (col.orange, " 8) extundelete               ")
-		Cprint (col.orange, " 9) foremost                  ")
-		Cprint (col.orange, "10) galleta                   ")
-		Cprint (col.orange, "11) guymager                  ")
-		Cprint (col.orange, "12) libdistorm3-3             ")
-		Cprint (col.orange, "13) p0f                       ")
-		Cprint (col.orange, "14) pdf-parser                ")
-		Cprint (col.orange, "15) pdfid                     ")
-		Cprint (col.orange, " b) ")
-	
-		i = input()
-		try:
-			i=int(i)
-			if type(i) == int:
-				print ("yay")
-				installp(1,(i-1))
-			if i == "0":
-				os.system(exit)
-		except:
-			if i == "b":
-				ToolsCat()
-def Hdhack():
-	while True :
-		clear()
-		logo()
-		Cprint (col.red, "****************************** All Tools ********************************")
-		Cprint (col.orange, "*************************** Pentesting Tools ****************************")
-		print ("")
-		Cprint (col.orange, "enter the index of the Tool you want to open ")
-		Cprint (col.orange, "enter anything else to exit \n")
-		Cprint (col.orange, " 1) android-sdk")
-		Cprint (col.orange, " 2) apktool")
-		Cprint (col.orange, " 3) arduino")
-		Cprint (col.orange, " 4) dex2jar")
-		Cprint (col.orange, " 5) sakis3g")
-		Cprint (col.orange, " 6) smali")
-		Cprint (col.orange, " b) ")
-	
-		i = input()
-		try:
-			i=int(i)
-			if type(i) == int:
-				print ("yay")
-				installp(2,(i-1))
-			if i == "0":
-				os.system(exit)
-		except:
-			if i == "b":
-				ToolsCat()
-def MntngAcc():
-	while True :
-		clear()
-		logo()
-		Cprint (col.red, "****************************** All Tools ********************************")
-		Cprint (col.orange, "*************************** Pentesting Tools ****************************")
-		print ("")
-		Cprint (col.orange, "enter the index of the Tool you want to open ")
-		Cprint (col.orange, "enter anything else to exit \n")
-		Cprint (col.orange, " 1) Exploitation_Tools")
-		Cprint (col.orange, " 2) Forensics_Tools")
-		Cprint (col.orange, " 3) Hardware_Hacking")
-		Cprint (col.orange, " 4) Information_Gathering")
-		Cprint (col.orange, " 5) Maintaining_Access")
-		Cprint (col.orange, " 6) Password_Attacks")
-		Cprint (col.orange, " 7) Reporting_Tools")
-		Cprint (col.orange, " 8) Reverse_Engineering")
-		Cprint (col.orange, " 9) Sniffing_and_Spoofing")
-		Cprint (col.orange, "10) Stress_Testing")
-		Cprint (col.orange, "11) Vulnerability_Analysis")
-		Cprint (col.orange, "12) Web_Applications")
-		Cprint (col.orange, "13) Wireless_Attacks")
-		Cprint (col.orange, " b) ")
-	
-		i = input()
-		try:
-			i=int(i)
-			if type(i) == int:
-				print ("yay")
-				installp(4,(i-1))
-			if i == "0":
-				os.system(exit)
-		except:
-			if i == "b":
-				ToolsCat()
-def PsswdAttk():
-	while True :
-		clear()
-		logo()
-		Cprint (col.red, "****************************** All Tools ********************************")
-		Cprint (col.orange, "*************************** Pentesting Tools ****************************")
-		print ("")
-		Cprint (col.orange, "enter the index of the Tool you want to open ")
-		Cprint (col.orange, "enter anything else to exit \n")
-		Cprint (col.orange, " 1) Exploitation_Tools")
-		Cprint (col.orange, " 2) Forensics_Tools")
-		Cprint (col.orange, " 3) Hardware_Hacking")
-		Cprint (col.orange, " 4) Information_Gathering")
-		Cprint (col.orange, " 5) Maintaining_Access")
-		Cprint (col.orange, " 6) Password_Attacks")
-		Cprint (col.orange, " 7) Reporting_Tools")
-		Cprint (col.orange, " 8) Reverse_Engineering")
-		Cprint (col.orange, " 9) Sniffing_and_Spoofing")
-		Cprint (col.orange, "10) Stress_Testing")
-		Cprint (col.orange, "11) Vulnerability_Analysis")
-		Cprint (col.orange, "12) Web_Applications")
-		Cprint (col.orange, "13) Wireless_Attacks")
-		Cprint (col.orange, " b) ")
-	
-		i = input()
-		try:
-			i=int(i)
-			if type(i) == int:
-				print ("yay")
-				installp(5,(i-1))
-			if i == "0":
-				os.system(exit)
-		except:
-			if i == "b":
-				ToolsCat()
-def Reprttools():
-	while True :
-		clear()
-		logo()
-		Cprint (col.red, "****************************** All Tools ********************************")
-		Cprint (col.orange, "*************************** Pentesting Tools ****************************")
-		print ("")
-		Cprint (col.orange, "enter the index of the Tool you want to open ")
-		Cprint (col.orange, "enter anything else to exit \n")
-		Cprint (col.orange, " 1) Exploitation_Tools")
-		Cprint (col.orange, " 2) Forensics_Tools")
-		Cprint (col.orange, " 3) Hardware_Hacking")
-		Cprint (col.orange, " 4) Information_Gathering")
-		Cprint (col.orange, " 5) Maintaining_Access")
-		Cprint (col.orange, " 6) Password_Attacks")
-		Cprint (col.orange, " 7) Reporting_Tools")
-		Cprint (col.orange, " 8) Reverse_Engineering")
-		Cprint (col.orange, " 9) Sniffing_and_Spoofing")
-		Cprint (col.orange, "10) Stress_Testing")
-		Cprint (col.orange, "11) Vulnerability_Analysis")
-		Cprint (col.orange, "12) Web_Applications")
-		Cprint (col.orange, "13) Wireless_Attacks")
-		Cprint (col.orange, " b) ")
-	
-		i = input()
-		try:
-			i=int(i)
-			if type(i) == int:
-				print ("yay")
-				installp(6,(i-1))
-			if i == "0":
-				os.system(exit)
-		except:
-			if i == "b":
-				ToolsCat()
-def RevrEngne():
-	while True :
-		clear()
-		logo()
-		Cprint (col.red, "****************************** All Tools ********************************")
-		Cprint (col.orange, "*************************** Pentesting Tools ****************************")
-		print ("")
-		Cprint (col.orange, "enter the index of the Tool you want to open ")
-		Cprint (col.orange, "enter anything else to exit \n")
-		Cprint (col.orange, " 1) Exploitation_Tools")
-		Cprint (col.orange, " 2) Forensics_Tools")
-		Cprint (col.orange, " 3) Hardware_Hacking")
-		Cprint (col.orange, " 4) Information_Gathering")
-		Cprint (col.orange, " 5) Maintaining_Access")
-		Cprint (col.orange, " 6) Password_Attacks")
-		Cprint (col.orange, " 7) Reporting_Tools")
-		Cprint (col.orange, " 8) Reverse_Engineering")
-		Cprint (col.orange, " 9) Sniffing_and_Spoofing")
-		Cprint (col.orange, "10) Stress_Testing")
-		Cprint (col.orange, "11) Vulnerability_Analysis")
-		Cprint (col.orange, "12) Web_Applications")
-		Cprint (col.orange, "13) Wireless_Attacks")
-		Cprint (col.orange, " b) ")
-	
-		i = input()
-		try:
-			i=int(i)
-			if type(i) == int:
-				print ("yay")
-				installp(7,(i-1))
-			if i == "0":
-				os.system(exit)
-		except:
-			if i == "b":
-				ToolsCat()
-def SnifnSpof():
-	while True :
-		clear()
-		logo()
-		Cprint (col.red, "****************************** All Tools ********************************")
-		Cprint (col.orange, "*************************** Pentesting Tools ****************************")
-		print ("")
-		Cprint (col.orange, "enter the index of the Tool you want to open ")
-		Cprint (col.orange, "enter anything else to exit \n")
-		Cprint (col.orange, " 1) Exploitation_Tools")
-		Cprint (col.orange, " 2) Forensics_Tools")
-		Cprint (col.orange, " 3) Hardware_Hacking")
-		Cprint (col.orange, " 4) Information_Gathering")
-		Cprint (col.orange, " 5) Maintaining_Access")
-		Cprint (col.orange, " 6) Password_Attacks")
-		Cprint (col.orange, " 7) Reporting_Tools")
-		Cprint (col.orange, " 8) Reverse_Engineering")
-		Cprint (col.orange, " 9) Sniffing_and_Spoofing")
-		Cprint (col.orange, "10) Stress_Testing")
-		Cprint (col.orange, "11) Vulnerability_Analysis")
-		Cprint (col.orange, "12) Web_Applications")
-		Cprint (col.orange, "13) Wireless_Attacks")
-		Cprint (col.orange, " b) ")
-	
-		i = input()
-		try:
-			i=int(i)
-			if type(i) == int:
-				print ("yay")
-				installp(8,(i-1))
-			if i == "0":
-				os.system(exit)
-		except:
-			if i == "b":
-				ToolsCat()
-def Strsstst():
-	while True :
-		clear()
-		logo()
-		Cprint (col.red, "****************************** All Tools ********************************")
-		Cprint (col.orange, "*************************** Pentesting Tools ****************************")
-		print ("")
-		Cprint (col.orange, "enter the index of the Tool you want to open ")
-		Cprint (col.orange, "enter anything else to exit \n")
-		Cprint (col.orange, " 1) dhcpig")
-		Cprint (col.orange, " 2) funkload")
-		Cprint (col.orange, " 3) iaxflood")
-		Cprint (col.orange, " 4) inviteflood")
-		Cprint (col.orange, " 5) ipv6-toolkit")
-		Cprint (col.orange, " 6) mdk3")
-		Cprint (col.orange, " 7) reaver")
-		Cprint (col.orange, " 8) rtpflood")
-		Cprint (col.orange, " 9) slowhttptest")
-		Cprint (col.orange, "10) t50")
-		Cprint (col.orange, "11) termineter")
-		Cprint (col.orange, "12) thc-ipv6")
-		Cprint (col.orange, "13) thc-ssl-dos")
-		Cprint (col.orange, " b) ")
-	
-		i = input()
-		try:
-			i=int(i)
-			if type(i) == int:
-				print ("yay")
-				installp(9,(i-1))
-			if i == "0":
-				os.system(exit)
-		except:
-			if i == "b":
-				ToolsCat()
-def WebApps():
-	while True :
-		clear()
-		logo()
-		Cprint (col.red, "****************************** All Tools ********************************")
-		Cprint (col.orange, "*************************** Pentesting Tools ****************************")
-		print ("")
-		Cprint (col.orange, "enter the index of the Tool you want to open ")
-		Cprint (col.orange, "enter anything else to exit \n")
-		Cprint (col.orange, " 1) Exploitation_Tools")
-		Cprint (col.orange, " 2) Forensics_Tools")
-		Cprint (col.orange, " 3) Hardware_Hacking")
-		Cprint (col.orange, " 4) Information_Gathering")
-		Cprint (col.orange, " 5) Maintaining_Access")
-		Cprint (col.orange, " 6) Password_Attacks")
-		Cprint (col.orange, " 7) Reporting_Tools")
-		Cprint (col.orange, " 8) Reverse_Engineering")
-		Cprint (col.orange, " 9) Sniffing_and_Spoofing")
-		Cprint (col.orange, "10) Stress_Testing")
-		Cprint (col.orange, "11) Vulnerability_Analysis")
-		Cprint (col.orange, "12) Web_Applications")
-		Cprint (col.orange, "13) Wireless_Attacks")
-		Cprint (col.orange, " b) ")
-	
-		i = input()
-		try:
-			i=int(i)
-			if type(i) == int:
-				print ("yay")
-				installp(11,(i-1))
-			if i == "0":
-				os.system(exit)
-		except:
-			if i == "b":
-				ToolsCat()
-def WireAttks():
-	while True :
-		clear()
-		logo()
-		Cprint (col.red, "****************************** All Tools ********************************")
-		Cprint (col.orange, "*************************** Pentesting Tools ****************************")
-		print ("")
-		Cprint (col.orange, "enter the index of the Tool you want to open ")
-		Cprint (col.orange, "enter anything else to exit \n")
-		Cprint (col.orange, " 1) Exploitation_Tools")
-		Cprint (col.orange, " 2) Forensics_Tools")
-		Cprint (col.orange, " 3) Hardware_Hacking")
-		Cprint (col.orange, " 4) Information_Gathering")
-		Cprint (col.orange, " 5) Maintaining_Access")
-		Cprint (col.orange, " 6) Password_Attacks")
-		Cprint (col.orange, " 7) Reporting_Tools")
-		Cprint (col.orange, " 8) Reverse_Engineering")
-		Cprint (col.orange, " 9) Sniffing_and_Spoofing")
-		Cprint (col.orange, "10) Stress_Testing")
-		Cprint (col.orange, "11) Vulnerability_Analysis")
-		Cprint (col.orange, "12) Web_Applications")
-		Cprint (col.orange, "13) Wireless_Attacks")
-		Cprint (col.orange, " b) ")
-	
-		i = input()
-		try:
-			i=int(i)
-			if type(i) == int:
-				print ("yay")
-				installp(12,(i-1))
-			if i == "0":
-				os.system(exit)
-		except:
-			if i == "b":
-				ToolsCat()
-
 def mainmenu():
 	while True :
 		clear()
@@ -1133,6 +697,7 @@ def mainmenu():
 		Cprint (col.orange, " 4) Contact me")
 		Cprint (col.orange, " 5) My shop")
 		Cprint (col.orange, " 6) update Rootyss")
+		Cprint (col.orange, " 7) Geolocate ip")
 		Cprint (col.orange, " 0) to exit                                                                      v")
 		
 		i = input()
@@ -1165,10 +730,16 @@ def mainmenu():
 					cntnu()
 			else:
 				Cprint (col.red, "No connection Established")
+		elif i == "7":
+			geolocate()
 		elif i == "0":
 			break
 
 
+
+#os.system(p)
+
+""" chekerz
 #checker
 
 combo=0
@@ -1210,7 +781,6 @@ post_context_data = {
 	"state":"auth",
 	"userName":"test@gmail.com",
 }
-
 headers_context_data = {
 	"content-type": "application/vnd-v4.0+json",
 	"x-device-os-id": "8c6ba119-2f93-48e4-9a92-ec095a6ca48e",
@@ -1220,34 +790,31 @@ headers_context_data = {
 
 
 api_sender = requests.session()
-json_content = api_sender.post("https://api.grabpoints.com/login", data = json.dumps(post_context_data), headers=headers_context_data).content
+json_content = api_sender.post("https://www.netflix.com/il-en/login", data = json.dumps(post_context_data), headers=headers_context_data).content
 print(json_content)
 
-
-
-
-
-
-
+"""
 
 #print(installed_packages) do not if else is print
 #installp(1,21)
 
 
 
-
 #clear()
-#mainmenu()
+mainmenu()
+
+
+
+
+#x = sp.Popen(["gnome-terminal cd /home ls"],shell = True)
+#x = sp.Popen("cd  /home/kali ls",shell = True)
+#x.("ls")
+#i=input()
+
 
 #checker()
 
 
 #input()
-
-
-
-
-
-
 
 
