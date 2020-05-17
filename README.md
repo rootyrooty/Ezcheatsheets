@@ -18,4 +18,4 @@ open tools
 fast lazy sql                                                                                                  
 ip check done                                                                                                              
 metasploit                                                                                                  
-red mark uninstalled tools
+red mark uninstalled tools done
